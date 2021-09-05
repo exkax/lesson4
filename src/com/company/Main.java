@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class Main {
 
-    public static int bossHealth = 700;
+    public static int bossHealth = 800;
     public static int bossDamage = 50;
     public static String bossDefence = "";
-    public static int[] heroesHealth = {260, 250, 240, 200};
-    public static int[] heroesDamage = {20, 25, 15};
-    public static String[] heroesAtackType = {"physical", "magical", "kinetic", "Medic"};
+    public static int[] heroesHealth = {260, 250, 240, 200, 300, 220, 205, 350};
+    public static int[] heroesDamage = {20, 25, 15, 5, 15,10,30};
+    public static String[] heroesAtackType = {"physical", "magical", "kinetic", "Medic", "Golem", "Lucky", "Berserk", "Thor"};
     public static int health = 20;
 
     public static void main(String[] args) {
@@ -35,6 +35,10 @@ public class Main {
             bossHits();
         }
         medicsHelp();
+        Golem();
+        Lucky();
+        Berserk();
+        Thor();
         printstatistics();
     }
 
@@ -116,7 +120,7 @@ public class Main {
                 allHeroesDead = false;
                 break;
             }
-    }
+        }
         if (allHeroesDead) {
             System.out.println("Boss won!!!");
         }
@@ -132,4 +136,60 @@ public class Main {
 
         }
     }
+
+    public static void Golem() {
+        Random random = new Random();
+        int ron = random.nextInt(3) + 1;
+        switch (ron) {
+            case 1:
+                if (heroesHealth[4] > 0) {
+                    for (int i = 0; i < heroesHealth.length; i++) {
+                        heroesHealth[i] = heroesHealth[i] + 10;
+                    }
+                    heroesHealth[4] = heroesHealth[4] - 70;
+                    System.out.println("Golem использовал супер способность");
+                }
+        }
+    }
+
+    public static void Lucky() {
+        Random random = new Random();
+        boolean ron = random.nextBoolean();
+        if (heroesHealth[5]>0){
+            if(!(ron)){
+                heroesHealth[5] = heroesHealth[5] + bossDamage;
+                if (heroesHealth[5] > 220){
+                    heroesHealth[5] = heroesHealth[5] - bossDamage;
+                }
+
+            }else if (ron){
+                heroesHealth[5]=heroesHealth[5];
+            }
+        }
+
+    }
+    public static void Berserk(){
+        Random random = new Random();
+        int r1 = 10;
+        int r2 = random.nextInt(3)+1;
+        switch (r2){
+            case 1:
+                heroesDamage[6] = (heroesDamage[6] + bossDamage) - r1;
+                System.out.println("Берсерк нанес супер удар");
+        }
+    }
+    public static void Thor(){
+        Random random = new Random();
+        boolean r = random.nextBoolean();
+        if (heroesHealth[7]>0){
+            if (!(r)){
+                bossDamage=50;
+            }else if (r){
+                bossDamage=0;
+                System.out.println("Тор использовал супер способность");
+            }
+        }
+    }
 }
+
+
